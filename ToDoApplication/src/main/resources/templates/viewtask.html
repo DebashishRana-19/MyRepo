@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Your Tasks</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            padding: 40px;
+        }
+
+        .task-container {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 26px;
+        }
+
+        .top-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .top-actions a {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .top-actions a:first-child {
+            background: #1cc88a;
+            color: #fff;
+        }
+
+        .top-actions a:first-child:hover {
+            background: #17a673;
+            transform: scale(1.05);
+        }
+
+        .top-actions a:last-child {
+            background: #e74a3b;
+            color: #fff;
+        }
+
+        .top-actions a:last-child:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            background: #f8f9fc;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        li:hover {
+            background: #eef2ff;
+            transform: scale(1.01);
+        }
+
+        .task-details {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .task-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .task-time {
+            background: #4e73df;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .task-actions a {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .edit-btn {
+            background: #f6c23e;
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background: #dda20a;
+            transform: scale(1.05);
+        }
+
+        .delete-btn {
+            background: #e74a3b;
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="task-container">
+        <h2>Your Tasks</h2>
+
+        <div class="top-actions">
+            <a th:href="@{/tasks/new}">➕ New Task</a>
+            <a th:href="@{/signout}">Logout</a>
+        </div>
+
+        <ul>
+            <li th:each="t : ${tasks}">
+                <div class="task-details">
+                    <span class="task-name" th:text="${t.taskname}">Task Name</span>
+                    <span class="task-time" th:text="${t.timetocompletetask} + ' min'">Time</span>
+                </div>
+
+                <div class="task-actions">
+					<a th:href="@{/tasks/edit/{taskname}(taskname=${t.taskname})}" class="edit-btn">✏️ Edit</a>
+					<a th:href="@{/tasks/delete/{taskname}(taskname=${t.taskname})}" class="delete-btn">🗑️ Delete </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Task Manager</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(270deg, #6a11cb, #2575fc, #ff6a00, #00c6ff);
+            background-size: 800% 800%;
+            animation: gradientShift 18s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating work culture icons */
+        .icon {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0.7;
+            animation: floatUp 18s linear infinite;
+        }
+
+        .icon:nth-child(1) {
+            left: 8%;
+            animation-duration: 20s;
+            animation-delay: 0s;
+        }
+
+        .icon:nth-child(2) {
+            left: 25%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+
+        .icon:nth-child(3) {
+            left: 50%;
+            animation-duration: 22s;
+            animation-delay: 4s;
+        }
+
+        .icon:nth-child(4) {
+            left: 70%;
+            animation-duration: 17s;
+            animation-delay: 6s;
+        }
+
+        .icon:nth-child(5) {
+            left: 90%;
+            animation-duration: 25s;
+            animation-delay: 8s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(25px) rotate(15deg);
+            }
+            80% {
+                transform: translateX(-25px) rotate(-15deg);
+            }
+            100% {
+                bottom: 110%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 50px 70px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+            backdrop-filter: blur(12px);
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 35px;
+            color: #333;
+            font-size: 2.4rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        button.view {
+            background: #2575fc;
+            color: white;
+        }
+
+        button.view:hover {
+            background: #1250b5;
+            transform: scale(1.07);
+        }
+
+        button.create {
+            background: #28a745;
+            color: white;
+        }
+
+        button.create:hover {
+            background: #1c7c32;
+            transform: scale(1.07);
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated office/work icons -->
+    <div class="icon">💻</div>
+    <div class="icon">📁</div>
+    <div class="icon">📝</div>
+    <div class="icon">⏰</div>
+    <div class="icon">✅</div>
+
+    <div class="container">
+        <h1 th:text="'Welcome ' + ${session.user} + ' to Task Manager'"></h1>
+
+        <div class="btn-group">
+            <form th:action="@{/tasks}" method="get">
+                <button type="submit" class="view">View Tasks</button>
+            </form>
+
+            <form th:action="@{/tasks/new}" method="get">
+                <button type="submit" class="create">Create Task</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

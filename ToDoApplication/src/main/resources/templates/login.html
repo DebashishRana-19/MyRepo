@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .login-container p {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .login-container p[style*="color: red"] {
+            color: #e74a3b !important;
+            font-weight: bold;
+        }
+
+        .login-container p[style*="color: green"] {
+            color: #1cc88a !important;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #4e73df;
+            outline: none;
+            box-shadow: 0 0 6px rgba(78, 115, 223, 0.5);
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #4e73df;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2e59d9;
+        }
+
+        /* Eye icon */
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .toggle-password:hover {
+            color: #4e73df;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>User Login</h2>
+        <p th:text="${msg}"></p>
+        <!-- Display login error or message -->
+        <p th:if="${param.error}">Invalid username or password.</p>
+        <p th:if="${param.logout}">You have been logged out.</p>
+
+        <form th:action="@{/login}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" th:field="*{username}" id="name" />
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" th:field="*{password}" id="pswd" />
+                <span class="toggle-password" onclick="togglePassword()">👁</span>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById("pswd");
+            const toggleIcon = document.querySelector(".toggle-password");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.textContent = "🙈"; // change icon
+            } else {
+                passwordField.type = "password";
+                toggleIcon.textContent = "👁"; // back to eye
+            }
+        }
+    </script>
+</body>
+
+</html>
