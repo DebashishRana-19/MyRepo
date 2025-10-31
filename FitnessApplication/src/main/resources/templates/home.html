@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - FitnessFocusForward</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        .logo svg {
+            width: 42px;
+            height: 42px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover svg {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Main Content */
+        main {
+            text-align: center;
+            margin-top: 100px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        a {
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.25);
+            color: #333;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        a:hover {
+            background: #5c6bc0;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 20px;
+            }
+            .logo {
+                font-size: 1.3rem;
+            }
+            main {
+                margin-top: 60px;
+            }
+            a {
+                width: 80%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <!-- Inline SVG Logo (no delay, loads instantly) -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" fill="#5c6bc0" opacity="0.9"/>
+                <text x="32" y="39" text-anchor="middle" fill="white" font-size="20" font-weight="700" font-family="Segoe UI">FFF</text>
+            </svg>
+            FitnessFocusForward
+        </div>
+        <div>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <h1>Welcome, <span th:text="${username}">User</span> 👋</h1>
+        <div class="btn-container">
+            <a th:href="@{/workouts}">🏋️ Workouts</a>
+            <a th:href="@{/goals}">🎯 Goals</a>
+        </div>
+    </main>
+</body>
+</html>

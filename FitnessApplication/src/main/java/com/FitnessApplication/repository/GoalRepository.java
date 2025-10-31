@@ -1,0 +1,13 @@
+package com.FitnessApplication.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.FitnessApplication.model.Goal;
+
+public interface GoalRepository extends JpaRepository<Goal,Long>{
+
+	List<Goal>findByUserId(Long userrid);
+
+}
