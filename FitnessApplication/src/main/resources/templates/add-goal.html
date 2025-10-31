@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Goal</title>
+    <style>
+        body { font-family: 'Segoe UI'; background: #f0f4f8; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #fff; padding: 20px;
+                     border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; }
+        button { background: #3498db; color: white; border: none; border-radius: 5px; }
+        button:hover { background: #2a73b9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Goal</h2>
+        <form th:action="@{/goals/add}" method="post" th:object="${goal}">
+            <label>Description:</label>
+            <input type="text" th:field="*{description}" required />
+            <label>Target Value:</label>
+            <input type="number" th:field="*{targetValue}" required />
+            <label>Current Progress:</label>
+            <input type="number" th:field="*{currentProgress}" required />
+            <button type="submit">Save</button>
+        </form>
+        <a th:href="@{/goals}">⬅ Back</a>
+    </div>
+</body>
+</html>
